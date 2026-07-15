@@ -21,3 +21,46 @@ struggle with compositional queries (e.g. distinguishing "red shirt, blue pants"
 Final score = weighted combination of dense similarity + attribute match score.
 
 ## Repo structure
+fashion-retrieval/
+├── indexer/
+│   ├── build_metadata.py   # extracts garment category + color per image (structured attribute layer)
+│   ├── embed_images.py     # FashionCLIP embedding generation (images + text queries)
+│   └── build_index.py      # FAISS vector index construction
+├── retriever/
+│   ├── search.py           # hybrid dense + attribute-match search logic
+│   └── evaluate.py         # runs the 5 required evaluation queries
+├── run_pipeline.py         # end-to-end: dataset -> index -> evaluation
+└── README.md
+## Dataset
+
+[Fashionpedia](https://fashionpedia.github.io/home/) — chosen over generic product-catalog
+datasets (e.g. plain-background e-commerce photos) because it contains real-world images
+with actual environments/backgrounds (street, indoor, etc.), which is required for
+context-aware queries like "professional attire in a modern office." A balanced subset of
+~800-820 images was selected, capping overrepresented garment categories so rarer types
+still get fair representation.
+
+## Setup & running
+
+```bash
+pip install torch transformers faiss-cpu pillow numpy
+python run_pipeline.py
+```
+
+Update the `ANNOTATION_JSON` and `IMAGES_DIR` paths at the top of `run_pipeline.py` to
+point to your local Fashionpedia download.
+
+## Known limitations
+
+- Fashionpedia has no native color labels; colors are extracted via median-pixel sampling
+  within each garment's bounding box, mapped to the nearest named color in a fixed palette.
+  This is a reasonable approximation but not as precise as a dedicated color classifier.
+- Some rare garment categories (e.g. ties) are underrepresented in a random/balanced
+  subset of this size; a targeted top-up step was used to ensure evaluation query coverage.
+- The dataset's images are lifestyle/editorial photography, not natural everyday photos,
+  which may not perfectly match casual-context queries (e.g. "city walk").
+
+## Future work
+
+See the accompanying write-up PDF for full details on extending this system with
+location/weather metadata and further precision improvements.
