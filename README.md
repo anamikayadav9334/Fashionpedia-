@@ -21,19 +21,7 @@ struggle with compositional queries (e.g. distinguishing "red shirt, blue pants"
 Final score = weighted combination of dense similarity + attribute match score.
 
 ## Repo structure
-fashion-retrieval/
-├── indexer/
-│   ├── embed_images.py       # FashionCLIP embedding extraction
-│   ├── extract_attributes.py # parse Fashionpedia annotations → structured tags
-│   └── build_index.py        # push embeddings + metadata into Chroma
-├── retriever/
-│   ├── parse_query.py        # NL query → (color, garment, scene) tags
-│   ├── search.py             # dense search + attribute rerank
-│   └── evaluate.py           # run the 5 eval queries, print top-k results
-├── data/                     # (gitignored — don't commit raw images)
-├── requirements.txt
-├── README.md
-└── writeup.pdf
+
 <img width="607" height="261" alt="Screenshot 2026-07-16 at 9 24 19 AM" src="https://github.com/user-attachments/assets/c1aca944-2f1a-4dc3-b080-bb4b259da22c" />
 
 ## Dataset
