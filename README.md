@@ -23,14 +23,17 @@ Final score = weighted combination of dense similarity + attribute match score.
 ## Repo structure
 fashion-retrieval/
 ├── indexer/
-│   ├── build_metadata.py   # extracts garment category + color per image (structured attribute layer)
-│   ├── embed_images.py     # FashionCLIP embedding generation (images + text queries)
-│   └── build_index.py      # FAISS vector index construction
+│   ├── embed_images.py       # FashionCLIP embedding extraction
+│   ├── extract_attributes.py # parse Fashionpedia annotations → structured tags
+│   └── build_index.py        # push embeddings + metadata into Chroma
 ├── retriever/
-│   ├── search.py           # hybrid dense + attribute-match search logic
-│   └── evaluate.py         # runs the 5 required evaluation queries
-├── run_pipeline.py         # end-to-end: dataset -> index -> evaluation
-└── README.md
+│   ├── parse_query.py        # NL query → (color, garment, scene) tags
+│   ├── search.py             # dense search + attribute rerank
+│   └── evaluate.py           # run the 5 eval queries, print top-k results
+├── data/                     # (gitignored — don't commit raw images)
+├── requirements.txt
+├── README.md
+└── writeup.pdf
 ## Dataset
 
 [Fashionpedia](https://fashionpedia.github.io/home/) — chosen over generic product-catalog
