@@ -34,6 +34,8 @@ fashion-retrieval/
 ├── requirements.txt
 ├── README.md
 └── writeup.pdf
+<img width="607" height="261" alt="Screenshot 2026-07-16 at 9 24 19 AM" src="https://github.com/user-attachments/assets/c1aca944-2f1a-4dc3-b080-bb4b259da22c" />
+
 ## Dataset
 
 [Fashionpedia](https://fashionpedia.github.io/home/) — chosen over generic product-catalog
